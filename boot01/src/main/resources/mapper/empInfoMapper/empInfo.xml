@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.yedam.app.emp.mapper.EmpMapper">
+	<!-- 전체조회 -->
+	<select id="selectEmpAllList" resultType="EmpVO">
+		SELECT employee_id
+    	  ,first_name
+      	  ,last_name
+       	  ,email
+       	  ,phone_number
+       	  ,hire_date
+       	  ,job_id
+       	  ,salary
+       	  ,commission_pct
+       	  ,manager_id
+       	  ,department_id  
+		FROM employees
+		<where> <!--이건 where절을 태그화 시킨 것이다. 조건 중 충족되는 게 없다면 where절이 생략됨-->
+			<if test="lastName != null and !lastName.equals('')">
+				last_name = #{lastName}
+			</if>
+			<if test="departmentId > 0">
+				and department_id = #{departmentId}
+			</if>
+		</where>
+		ORDER BY employee_id
+	</select>
+	
+	<!-- 단건조회 -->
+	<select id="selectEmpInfo" resultType="EmpVO">
+		SELECT employee_id
+    	  ,first_name
+      	  ,last_name
+       	  ,email
+       	  ,phone_number
+       	  ,hire_date
+       	  ,job_id
+       	  ,salary
+       	  ,commission_pct
+       	  ,manager_id
+       	  ,department_id  
+		FROM employees
+		WHERE employee_id = #{employeeId}
+	<!-- #{} : 데이터 타입에 따른 추가작업 -->
+	<!-- ${} : 데이터 타입과 무관하게 '' 없이 씀 -->
+	</select>
+	
+	<!-- 등록 -->
+	<insert id="insertEmpInfo" parameterType="EmpVO"> <!-- 시퀀스를 안 쓰는 방법 -->
+		<selectKey keyProperty="employeeId"
+				   resultType="Integer"
+				   order="BEFORE"> <!-- selectkey를 앞으로 보낸다는 뜻 -->
+			SELECT NVL(MAX(employee_id),100 )+ 1
+			FROM employees
+		</selectKey>
+	insert into employees (
+		employee_id
+    	,last_name
+    	,email
+    	,hire_date
+    	,job_id
+    	<if test="salary > 0">
+    	,salary
+    	</if>
+	)
+	VALUES(
+   	 #{employeeId} 
+   	 <!-- employees_seq.NEXTVAL -->
+     ,#{lastName}
+     ,#{email}
+   	 <choose>
+    	<when test="hireDate != null">
+    	 ,#{hireDate}
+     	</when>   
+        <otherwise>
+      	 ,sysdate
+        </otherwise> 
+     </choose>
+     ,#{jobId}
+      <if test="salary > 0">
+      ,#{salary}
+      </if>
+	)
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="updateEmpInfo"> <!-- 매개변수가 2개 이상을 때는 파라메터 생략이 가능 -->
+		UPDATE employees
+		SET 
+			last_name = #{emp.lastName}                   <!-- 반드시 있어야 하는 값 -->
+			<if test="emp.email != null and emp.email.equals('')">
+			, email = #{emp.email}
+			</if>
+			<if test="emp.jobId != null and emp.jobId.equals('')" >
+			, job_id = #{emp.jobId}
+			</if>
+			<if test="emp.hireDate != null">
+			, hire_date = #{emp.hireDate}
+			</if>
+		WHERE employee_id = #{empid}
+	</update> 
+	
+	<!-- 삭제 -->
+	<delete id="deleteEmpInfo" parameterType="int">
+		DELETE FROM employees
+		WHERE employee_id = #{id}
+	</delete>
+</mapper>
+<!-- 마이바티스는 기존에 우리가 쓰던 디벨로퍼의 쿼리문을 그대로 쓸 수 있다. -->

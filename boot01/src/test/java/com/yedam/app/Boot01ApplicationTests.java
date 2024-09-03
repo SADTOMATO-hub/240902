@@ -56,7 +56,7 @@ class Boot01ApplicationTests {
 	}
 //	@Test
 	void insertInfoFull() throws ParseException {
-		//모든 데이트 넣기
+		//모든 데이터 넣기
 		EmpVO empvo = new EmpVO();
 		empvo.setLastName("kim");
 		empvo.setEmail("dntkds1110000@naver.com");
