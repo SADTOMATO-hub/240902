@@ -6,16 +6,18 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 	
-	<!-- <beans:bean id="tv" class="com.yedam.app.spring.TV" /> --> <!-- 어떤 클래스에 빈을 설정할지는 class, 내가 이름을 짓고 싶다 = id -->
+	<!-- <beans:bean id="tv" class="com.yedam.app.spring.TV" />  --><!-- 어떤 클래스에 빈을 설정할지는 class, 내가 이름을 짓고 싶다 = id -->
+	<beans:bean id="tv" class="com.yedam.app.spring.TV" />
 	
-	<!-- DI : XML 방식 -->
-	<!-- <beans:bean id="cf" class=" com.yedam.app.spring.xml.Chef" /> -->  <!-- 쉐프를 먼저 만들고 -->
-	<!-- <bean class="com.yedam.app.spring.xml.Restaurant"> -->
-	<!-- 생성자 주입 -->
-		<!-- <constructor-arg ref="cf" /> --> <!-- 쉐프를 참조하기 위해 id를 입력 -->
+	
+	<!-- DI : XML 방식 주입-->
+	 <beans:bean id="cf" class=" com.yedam.app.spring.xml.Chef" />   <!-- 쉐프를 먼저 만들고 -->
+	 <bean class="com.yedam.app.spring.xml.Restaurant">
+	<!-- 생성자 주입 --> 
+	 <constructor-arg ref="cf" /> <!-- 쉐프를 참조하기 위해 id를 입력 -->
 	<!-- 세터 주입 -->
 	<!-- <property name="chef" ref="cf" /> --> <!-- 세터 규칙을 적용해서 메서드를 찾아감 --> 	
-	<!-- </bean> -->
+	 </bean> 
 	
 	<!-- DI: 어노테이션 방식 -->
 	<context:component-scan base-package="com.yedam.app.spring.anotation" />

@@ -11,6 +11,10 @@ public class SpringExample {
 		
 		Restaurant res = (Restaurant) ctx.getBean(Restaurant.class);
 		res.run();  //chef가 없는데도 실행되는 이유?? 우리가 applicationContext.xml에 상속 작업을 마쳤기 때문
+	
+		//Restaurant res = (Restaurant) ctx.getBean(Restaurant.class);
+		//res.run();
+	
 	}
 }
 //DI의 방식

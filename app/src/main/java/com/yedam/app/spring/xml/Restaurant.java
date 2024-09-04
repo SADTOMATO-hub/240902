@@ -1,7 +1,7 @@
 package com.yedam.app.spring.xml;
 
 public class Restaurant {
-	//생성자
+	//필드
 	private Chef chef;
 	
 	//생성자 인젝션 방식
@@ -18,7 +18,6 @@ public class Restaurant {
 		this.chef = chef;
 		System.out.println("세터 인젝션");
 	}
-	
 	//메서드
 	public void run() {
 		chef.coocking();
