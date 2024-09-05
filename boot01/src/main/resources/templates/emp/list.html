@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<head>
+<meta charset="UTF-8">
+<meta name="ctxPath_aka_love" th:value="${ContextPath}"> <!-- WebAdvice에 저장 됨 -->
+<title>emp.list</title>
+</head>
+<body>
+	<h1>여기는 리스트</h1>
+	<hr>
+	<div>
+		<h3>전체 사원 조회</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>No. </th>
+					<th>사원번호</th>
+					<th>이름</th>
+					<th>입사일자</th>
+					<th>업무</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block>
+					<th:block th:each=" info, sts : ${emps} ">
+						<!--/* info <=> EmpVO <tr/> */-->
+						<!--/* 반복하고자 하는 코드 */-->
+						<!--/* <tr th:onclick="location.href='@{/empInfo?employeeId=${info.employeeId}}'"> */--> <!--/* 이거 잘못된 거임 저기 적은 거 다 출력됨 console에*/-->
+						<!--/* <tr th:onclick="|location.href='@{/empInfo?employeeId=${info.employeeId}}'|"> /*--> <!--/* |를 입력하여 감싸서 template 문자임을 알림 */, 또 다른 문제 링크 표현식 안에서 달러 표현식을 사용할 수 없음 */-->
+						<!--/* <tr th:onclick="|location.href='@{/empInfo(employeeId=${info.employeeId})}'|"> */--> <!--/*괄호를 통해서 구분*/--> <!--/* script를 추가했기 땜에 주석 */-->
+						<tr>	
+							<td>[[${sts.count}]]</td>
+							<td th:text="${info.employeeId}" /> <!--/* th:text를 써서 강제로 여기 값을 넣는다 */-->
+							<td th:text="${info.lastName}"/>
+							<!--/* <td>입사일자 : [[${info.hireDate}]]</td> */--> <!--/* [[]]를 통해 태그 내에서 사용 */-->
+							<td>[[${#dates.format(info.hireDate, "yy년☆MM월☆dd일 ")}]]</td> <!--/* 포멧 사용법 */-->
+							<td>[[ ${emps[sts.index].jobId} ]]</td>
+						</tr>
+					</th:block>
+				</th:block>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		const context = $('meta[name="ctxPath_aka_love"]').attr('value'); //val(); 이건 동작하지 않음// 내가 필요해서 임의로 서정한 것은 attr()을 씀
+		$('tbody > tr').on('click', function(event){
+			let trTag = event.currentTarget;
+			let eid = $(trTag).children().eq(1).text();
+			let url = context + '/empInfo?employeeId=' + eid;
+			location.href=url;
+		});
+	</script>
+</body>
+</html>
