@@ -37,15 +37,18 @@ public class EmpController {
 			List<EmpVO> list = empService.empList();
 			// 2) 수행한 결과를 클라이언트에게 전달
 			model.addAttribute("emps", list);
-			return "emp/list"; // 3)데이터를 출력할 페이지 결정
+			return "emp/list"; // 3)데이터를 출력할 페이지 결정 return은 /로 시작하면 안 돼
+			// prefix + return + suffix => 실제 경로/ViewResolver
+			// classpath:/templates/emp/list.html  
 		}
 	//단건조회 : GET => QueryString(커맨드 객체 Or @RequestParam), employeeId
-		@GetMapping("empInfo")
+		@GetMapping("empInfo") //GetMapping 이기 때문에 empInfo?key=value 형태가 되어야 한다. 이게 쿼리스트링임
 		public String empInfo(EmpVO empVO, Model model) {
 			EmpVO findVO = empService.empinfo(empVO);
 			model.addAttribute("emp",findVO);
 			// HttpServletRequest.setAttribute();
 			return "emp/info";
+			// classpath:/templates/emp/info.html / classpath = 
 		}
 	//등록 - 페이지 : Get
 		@GetMapping("empInsert")
@@ -61,7 +64,7 @@ public class EmpController {
 			
 			if(eid > -1) {
 				// 정삭적으로 등록된 경우
-				url = "redirect:empInfo?employeeId" + eid;    //새로운 경로를 요청한다. "redirect:"가 가능한 경우는 GetMapping뿐이다.
+				url = "redirect:empInfo?employeeId=" + eid;    //새로운 경로를 요청한다. "redirect:"가 가능한 경우는 GetMapping뿐이다.
 			}else {
 				// 등록되지 않은 경우
 				url = "redirect:empList";
@@ -69,7 +72,7 @@ public class EmpController {
 			return url;
 		}
 	//수정 - 페이지 : Get, 조건이 필요 <=> 단건조회
-		@GetMapping("empUpdate")
+		@GetMapping("empUpdate") //empUpdate?employeeId=value(key=value)
 		public String empUpdateForm(EmpVO empVO, Model model) {
 			EmpVO findVO = empService.empinfo(empVO);
 			model.addAttribute("emp",findVO);
@@ -77,13 +80,13 @@ public class EmpController {
 			return "emp/update";
 		}
 	//수정 - 처리 : post,ajax 사용 => QueryString 기반
-		@PostMapping("empUpdate")
+		//@PostMapping("empUpdate")
 		@ResponseBody //응답이기에 반환값 위에 AJAX에 대응하는 어노테이션
 		public Map<String, Object> empupdateAJAXQueryString(EmpVO emoVO){
 			return empService.empUpdate(emoVO);
 		}
 	//수정 - 처리 : ajax 사용 => JSON (@RequestBody) 기반
-		//@PostMapping("empUpdate")
+		@PostMapping("empUpdate")
 		@ResponseBody //응답이기에 반환값 위에 AJAX에 대응하는 어노테이션
 		public Map<String, Object> empupdateAJAXJSON(@RequestBody EmpVO emoVO){
 			return empService.empUpdate(emoVO);
