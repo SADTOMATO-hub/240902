@@ -1,15 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org/">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<head>
-<meta charset="UTF-8">
-<meta name="ctxPath_aka_love" th:value="${ContextPath}"> <!-- WebAdvice에 저장 됨 -->
-<title>emp.list</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org"
+ 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{common/layouts/defaultLayout}" 
+	  layout:fragment="Content">
 <body>
 	<h1>여기는 리스트</h1>
 	<hr>
-	<div>
+	<div class="container">
 		<h3>전체 사원 조회</h3>
 		<table>
 			<thead>
