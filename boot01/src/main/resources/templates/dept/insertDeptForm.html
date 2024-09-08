@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{common/layouts/deptLayout}" 
+	  layout:fragment="this_is_main">
+<body>
+	<h1>새 부서 기입란</h1>
+	<hr>
+	<form th:action="@{/insertDeptData}" method="post">
+	<div >
+		<label for="deptname">부서명</label>
+		<input type="text" id="deptname" name="departmentName">	
+	</div>
+	<div>
+		<button type="submit">등록</button>
+	</div>
+	<div>
+		<button id="backToList">목록으로 돌아가기</button>
+	</div>
+	</form>
+</body>
+</html>

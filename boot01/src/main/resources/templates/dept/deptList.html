@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{common/layouts/deptLayout}" 
+	  layout:fragment="this_is_main">
+<body>
+	<h3>부서 목록</h3>
+	<hr>
+	<div>
+		<table>
+			<thead>
+			<tr>
+				<th>부서번호</th>
+				<th>부서명</th>
+			</tr>
+			</thead>
+			<tbody>
+				<th:block th:each=" info : ${depts} ">
+					<tr>
+						<td>[[${info.departmentId}]]</td>
+						<td>[[${info.departmentName}]]</td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+	</div>
+	<script>
+		//const ctx = $('meta[name="ctxPath_aka_love"]').attr('value');
+		$('tbody > tr').on('click',function(click){
+			let tr = event.currentTarget;
+			let deptId = $(tr).children().eq(0).text();
+			let url = /*ctx + */ '/deptInfo?departmentId=' + deptId;
+			location.href=url;
+		});
+		
+	</script>
+</body>
+</html>

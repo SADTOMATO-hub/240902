@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{common/layouts/deptLayout}" 
+	  layout:fragment="this_is_main">
+<body>
+	<h3>부서 정보</h3>
+	<hr>
+	<div>
+		<div>
+			<label for="departmentId">부서번호</label>
+			<input type="number" id="departmentId" th:value="${depfInfo.departmentId}" readonly>
+		</div>
+		<div>
+			<label for="departmentName">부서명</label>
+			<input type="text" id="departmentName" th:value="${depfInfo.departmentName}" readonly>
+		</div>
+		<div>
+			<label for="managerId">관리자 사번</label>
+			<input type="number" id="departmentId" th:value="${depfInfo.managerId}" readonly>
+		</div>
+		<div>
+			<label for="locationId">사원번호</label>
+			<input type="number" id="locationId" th:value="${depfInfo.locationId}" readonly>
+		</div>
+	</div>
+	<button type="button" th:onclick="|location.href='@{/deptList}'|" >목록</button>
+</body>
+</html>
