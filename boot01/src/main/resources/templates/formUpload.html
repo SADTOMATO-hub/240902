@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"> <!-- 폼 태그의 경로 때문에 필요함 -->
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<!--! formUpload -->
+<body>
+	<h3>업로딩</h3>
+	<hr>
+	<form th:action="@{/uploadForm}" method="post"
+		  enctype="multipart/form-data"> <!-- 우리는 쿼리가 아닌 파일을 보낼 것이기에 이걸 씀 -->  <!-- 이미지 외에 다양한 파일을 보낼 수 있다.-->
+		<input type="file" name="files" multiple> <!-- name = 매개변수 --> <!-- multiple = 여러 종류의 파일을 보낼 때 씀 -->
+		<button type="submit">저장</button>		  
+	</form>
+</body>
+</html>
+ 
