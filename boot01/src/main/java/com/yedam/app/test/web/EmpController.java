@@ -97,6 +97,6 @@ public class EmpController {
 			empService.empDelete(employeeId);
 			return "redirect:empList";
 		}
-		
+	
 	
 }
