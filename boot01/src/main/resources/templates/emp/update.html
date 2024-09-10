@@ -55,6 +55,9 @@
 			//JSON : @RequestBody
 			contentType : 'application/json', //이 둘은
 			data:JSON.stringify(dataObj)	  //같이 움직인다.
+		//	beforeSend : function (xhr){
+		//		xhr.setRequestHeader(csrfHeader, csrfToken)
+		//	},
 		})	
 		.done((data)=>{
 			if(data.result){
