@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.yedam.app.board.mapper.BoardMapper">
+	<select id="selectBoardList" resultType="BoardVO">
+		SELECT bno
+      		  ,title
+     		  ,contents
+      		  ,writer
+      		  ,regdate
+      		  ,updatedate
+      		  ,image
+		FROM board
+	</select>
+	<select id="selectBoardInformation" parameterType="int" resultType="BoardVO">
+		SELECT bno
+      		  ,title
+     		  ,contents
+      		  ,writer
+      		  ,regdate
+      		  ,updatedate
+      		  ,image
+		FROM board
+		WHERE bno = #{boardNo}
+	</select>
+	<insert id="registerNewBoard" parameterType="BoardVO">
+		<selectKey keyProperty="bno"
+				   resultType="Integer"
+				   order="BEFORE">
+			SELECT NVL(MAX(bno),999)+1
+			FROM board   
+		</selectKey>
+			INSERT INTO board (bno
+							    ,title
+								,contents
+								,writer
+								,regdate
+								<if test="updatedate != null">
+								,updatedate
+								</if>
+								,image
+								)
+					
+					VALUES	   (#{bno}
+								,#{title}
+								,#{contents}
+								,#{writer}
+								,#{regdate}
+								<if test="updatedate != null">
+								,#{updatedate}
+								</if>
+								,#{image}
+								)
+	</insert>
+	<update id="updateBoard" parameterType="BoardVO">
+		UPDATE board
+		SET
+		   title = #{title}
+		  ,contents = #{contents}
+		  ,writer = #{writer}
+		  ,regdate = #{regdate}
+		  ,updatedate = sysdate
+		  
+		WHERE bno = #{bno}  
+	</update>
+	<delete id="dropBoard" parameterType="int">
+		DELETE board
+		WHERE bno = #{love}
+	</delete>
+</mapper>
+<!-- 3번째 -->

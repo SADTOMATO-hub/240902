@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"> <!--/* https://ultraq.github.io/thymeleaf-layout-dialect/ 에서 긁어 오세요 */-->
+<head>
+<meta charset="UTF-8">
+<th:block th:replace="~{common/configs/default_config :: ConfigFrag}"></th:block>
+<title>Home</title>
+</head>
+<body>
+	<hr>
+	<h3></h3>
+	<div class="container">
+		<header th:insert="~{common/fragments/default_header :: HeaderFrag}"></header>
+		<main>
+			<div layout:fragment = "Content"></div>
+		</main>
+		<!-- <footer></footer> -->
+	</div>
+</body>
+</html>
