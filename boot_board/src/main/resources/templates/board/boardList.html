@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{common/layouts/default_layout}"
+	  layout:fragment="Content">
+<head>
+<meta charset="UTF-8">
+<title>게시판 리스트</title>
+</head>
+<body>
+	<h1>게시판 전체 출력</h1>
+	<hr>
+	<div class="text-center">
+		<h3>게시판 목록</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>작성일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="boardData : ${board}">
+					<tr th:onclick="|location.href='@{/boardInfo(bno=${boardData.bno})}'|">
+						<td>[[${boardData.bno}]]</td>
+						<td>[[${boardData.title}]]</td>
+						<td>[[${boardData.writer}]]</td>
+						<td>[[${#dates.format(boardData.regdate, "yy년MM월dd일")}]]</td>
+					</tr>	
+				</th:block>
+			</tbody>
+		</table>
+	</div>
+	
+</body>
+</html>

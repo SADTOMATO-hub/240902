@@ -34,9 +34,6 @@
 								,contents
 								,writer
 								,regdate
-								<if test="updatedate != null">
-								,updatedate
-								</if>
 								,image
 								)
 					
@@ -45,9 +42,6 @@
 								,#{contents}
 								,#{writer}
 								,#{regdate}
-								<if test="updatedate != null">
-								,#{updatedate}
-								</if>
 								,#{image}
 								)
 	</insert>

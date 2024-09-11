@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{common/layouts/default_layout}"
+	  layout:fragment="Content">
+<head>
+<meta charset="UTF-8">
+<title>상세 정보</title>
+</head>
+<body>
+	<h3>상세 정보</h3>
+	<hr>
+	<div class="main_div">
+		<table>
+			<tr>
+				<th>번호</th>
+				<td>[[${boardInfo.bno}]]</td>
+			</tr>
+			<tr>
+				<th>제목</th>
+				<td>[[${boardInfo.title}]]</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td height="100px" width="200px">
+					<textarea readonly>[[${boardInfo.contents}]]</textarea>
+				</td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td>[[${boardInfo.writer}]]</td>
+			</tr>
+			<tr>
+				<th>작성일</th>
+				<td>[[${#dates.format(boardInfo.regdate, "yyyy-MM-dd")}]]</td>
+			</tr>
+			<tr>
+				<th>첨부파일</th>
+				<td>
+				<img style="width:50%;" th:src="@{/images/{imgFile}(imgFile=${boardInfo.image})}"> <!--/* 경로 안의 {}는 동적인 값이다 */-->
+				</td>
+			</tr>
+		</table>
+		<button type="button" th:onclick="|locattion.href='@{/boardUpdateForm(boardNo=#{boardInfo.bno})}'|">수정</button>
+		<button type="button" th:onclick="|location.href='@{/boardList}'|">목록</button>
+		<button type="button" th:onclick="|location.href='@{/boardDelete(boardNo=#{boardInfo.bno})}'|">삭제</button>
+	</div>
+</body>
+</html>

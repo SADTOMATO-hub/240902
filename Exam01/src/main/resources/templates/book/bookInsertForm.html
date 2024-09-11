@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{common/layouts/default_layout}"
+	  layout:fragment="Content">
+<body>
+	<hr>
+	<h3></h3>
+	<div class="text-center">
+		<form name="bookInsertData" th:action="@{/bookInsertForm}" method="post">
+			<table>
+				<tr>
+					<th>도서번호</th>
+					<td><input type="text" id="bookNo" readonly name="bookNo" th:value="${bookNo}+1"></td>
+				</tr>
+				<tr>
+					<th>도서명</th>
+					<td><input type="text" id="bookName" name="bookName"></td>
+				</tr>
+				<tr>
+					<th>도서표지</th>
+					<td><textarea id="bookCoverimg" name="bookCoverimg"></textarea></td>
+				</tr>
+				<tr>
+					<th>출판일자</th>
+					<td><input type="text" id="bookDate" name="bookDate"></td>
+				</tr>
+				<tr>
+					<th>금액</th>
+					<td><input type="number" id="bookPrice" name="bookPrice" min="0"></td>
+				</tr>
+				<tr>
+					<th>출판사</th>
+					<td><input type="text" id="bookPublisher" name="bookPublisher"></td>
+				</tr>
+				<tr>
+					<th>도서소개</th>
+					<td><input type="text" id="bookInfo" name="bookInfo"></td>
+				</tr>
+			</table>
+			<div>
+				<button type="submit">제출</button>
+			</div>
+		</form>
+	</div>
+	<script>
+		$(bookInsertData).on('submit', boardInsertHandler);
+
+		function boardInsertHandler(event) {
+			event.preventDefault();
+
+			let bookName = $('form [name="bookName"]');
+			if (bookName.val() == '') {
+				alert("제목이 입력되지 않았음")
+				bookName.focus();
+				return;
+			}
+
+			let bookCoverimg = $('form [name="bookCoverimg"]')
+			if (bookCoverimg.val() == '') {
+				alert("이미지가 삽입되지 않았음")
+				bookCoverimg.focus();
+				return;
+			}
+
+			let bookDate = $('form [name="bookDate"]')
+			if (bookDate.val() == '') {
+				alert("날짜가 입력되지 않았음")
+				bookDate.focus();
+				return;
+			}
+			
+			let bookPrice = $('form [name="bookPrice"]')
+			if (bookPrice.val() == '') {
+				alert("가격이 입력되지 않았음")
+				bookPrice.focus();
+				return;
+			}
+			
+			let bookPublisher = $('form [name="bookPublisher"]')
+			if (bookPublisher.val() == '') {
+				alert("출판사 입력되지 않았음")
+				bookPublisher.focus();
+				return;
+			}
+			
+			let bookInfo = $('form [name="bookInfo"]')
+			if (bookInfo.val() == '') {
+				alert("책 정보가 입력되지 않았음")
+				bookInfo.focus();
+				return;
+			}
+			
+
+			alert('도서 등록이 완료되었습니다.');
+			bookInsertData.submit();
+		}
+	</script>
+</body>
+</html>

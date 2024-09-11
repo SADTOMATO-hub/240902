@@ -3,16 +3,13 @@
 		  th:fragment="HeaderFrag">
 <ul class="nav nav-tabs">
   <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">Active</a>
+    <a class="nav-link active" aria-current="page" th:href="@{/}">홈</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
+    <a class="nav-link" th:href="@{/boardList}">게시글 목록</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+    <a class="nav-link" th:href="@{/boardInsertForm}">게시글 등록</a>
   </li>
 </ul>
 </th:block>>
