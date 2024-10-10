@@ -10,20 +10,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.yedam.app.book.mapper.BookMapper;
+import com.yedam.app.book.service.BookService;
 import com.yedam.app.book.service.BookVO;
 
 @Controller
 public class BookCont {
-	private BookMapper bookmapper;
+	private BookService bookser;
 	
 	@Autowired
-	public BookCont(BookMapper bookmapper) {
-		this.bookmapper = bookmapper;
+	public BookCont(BookService bookser) {
+		this.bookser = bookser;
 	}
 	
 	@GetMapping("bookList")
 	public String bookList(Model model){
-		List<BookVO> list = bookmapper.bookList();
+		List<BookVO> list = bookser.list();
 		model.addAttribute("bookList", list);
 		return "book/bookList";
 	}
@@ -34,14 +35,14 @@ public class BookCont {
 	}
 	
 	@PostMapping("bookInsertData")
-	public String bookInsertData(@RequestParam Integer bookNo) {
-		bookmapper.insertBookData(bookNo); 
+	public String bookInsertData(@RequestParam Integer bookNo) {// bookVO bookvo
+		bookser.insertBook(bookNo); 
 		return "redirect:bookList";
 	}
 	
 	@GetMapping("rentInfo")
 	public String rentInfo(Model model) {
-		List<BookVO> list = bookmapper.rentInfo();
+		List<BookVO> list = bookser.rentList();
 		model.addAttribute("rentInfo",list);
 		return "book/rentInfo";
 	}
